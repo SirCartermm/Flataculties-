@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flatdango - Movie Ticket Purchase</title>
+  <title>Flatdango Movie Theater</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-  <h1>Flatdango - Movie Ticket Purchase</h1>
-  <div id="movies-list"></div>
-  <div id="selected-movie"></div>
-  <div id="ticket-quantity"></div>
-  <div id="total-cost"></div>
-  <button id="purchase-button">Purchase Tickets</button>
+  <div id="movie-details">
+    <h2>Movie Details</h2>
+    <img id="movie-poster" src="" alt="Movie Poster">
+    <h3 id="movie-title"></h3>
+    <p><strong>Runtime:</strong> <span id="movie-runtime"></span></p>
+    <p><strong>Showtime:</strong> <span id="movie-showtime"></span></p>
+    <p><strong>Available Tickets:</strong> <span id="movie-available-tickets"></span></p>
+    <button id="buy-ticket">Buy Ticket</button>
+  </div>
 
-  <script src="script.js"></script>
+  <ul id="films"></ul>
+
+  <script src="index.js"></script>
 </body>
 </html>

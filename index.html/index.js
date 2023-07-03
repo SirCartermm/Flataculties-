@@ -1,4 +1,4 @@
-ocument.addEventListener('DOMContentLoaded', () => {
+Document.addEventListener('DOMContentLoaded', () => {
     const movieDetails = document.getElementById('movie-details');
     const moviePoster = document.getElementById('movie-poster');
     const movieTitle = document.getElementById('movie-title');
