@@ -1,82 +1,53 @@
-const movies = [
-    {
-      title: "Now You See Me 1",
-      description: "A group of magicians pull off a series of elaborate bank while being pursued by the fbi.",
-      ticketPrice: 12.99
-    },
-    {
-      title: "Pixels",
-      description: "Government recruites  game experts to fight off an alien invasion in form of classic arcade games .",
-      ticketPrice: 11.99
-    },
-    {
-      title: "Superfly",
-    description: "A young drug dealer`s attempts to leave the criminal underworld behind and start a new life.",
-    ticketPrice: 10.99
-    },
-    {
-        title: "Kingsman",
-      description: "A youngman is recruited into a secret organization of gentleman spies to save the world from a megalomaniacal villian.",
-      ticketPrice: 9.99
-
-    }
-  ];
+ocument.addEventListener('DOMContentLoaded', () => {
+    const movieDetails = document.getElementById('movie-details');
+    const moviePoster = document.getElementById('movie-poster');
+    const movieTitle = document.getElementById('movie-title');
+    const movieRuntime = document.getElementById('movie-runtime');
+    const movieShowtime = document.getElementById('movie-showtime');
+    const movieAvailableTickets = document.getElementById('movie-available-tickets');
+    const buyTicketButton = document.getElementById('buy-ticket');
+    const filmsList = document.getElementById('films');
   
-  // Function to display available movies
-  function displayMovies() {
-    const moviesList = document.getElementById("movies-list");
-    moviesList.innerHTML = "";
-  
-    movies.forEach((movie, index) => {
-      const movieElement = document.createElement("div");
-      movieElement.innerHTML = `<h2>${movie.title}</h2>
-                                <p>${movie.description}</p>
-                                <p>Ticket Price: $${movie.ticketPrice.toFixed(2)}</p>`;
-  
-      // Set the selected movie on click
-      movieElement.addEventListener("click", () => {
-        selectMovie(index);
+    fetch('http://localhost:3000/films')
+      .then(response => response.json())
+      .then(data => {
+        moviePoster.src = data.poster;
+        movieTitle.textContent = data.title;
+        movieRuntime.textContent = data.runtime;
+        movieShowtime.textContent = data.showtime;
+        movieAvailableTickets.textContent = data.capacity - data.tickets_sold;
+      });
+      fetch('http://localhost:3000/films')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(film => {
+          const li = document.createElement('li');
+          li.classList.add('film-item');
+          li.textContent = film.title;
+          filmsList.appendChild(li);
+        });
       });
   
-      moviesList.appendChild(movieElement);
-    });
-  }
-  
-  // Function to select a movie
-  function selectMovie(index) {
-    const selectedMovie = document.getElementById("selected-movie");
-    selectedMovie.innerHTML = `<h3>Selected Movie:</h3>
-                               <p>${movies[index].title}</p>`;
-    
-    chooseTicketQuantity(index);
-  }
-  
-  // Function to choose ticket quantity
-  function chooseTicketQuantity(movieIndex) {
-    const ticketQuantity = document.getElementById("ticket-quantity");
-    ticketQuantity.innerHTML = `<h3>Choose Ticket Quantity:</h3>
-                                <input type="number" id="quantity-input" min="1" value="1">`;
-  
-    const quantityInput = document.getElementById("quantity-input");
-    quantityInput.addEventListener("change", () => {
-      calculateTotalCost(movieIndex, quantityInput.value);
+    filmsList.addEventListener('click', event => {
+      const filmTitle = event.target.textContent;
+      fetch('http://localhost:3000/films')
+        .then(response => response.json())
+        .then(data => {
+          const film = data.find(film => film.title === filmTitle);
+          if (film) {
+            moviePoster.src = film.poster;
+            movieTitle.textContent = film.title;
+            movieRuntime.textContent = film.runtime;
+            movieShowtime.textContent = film.showtime;
+            movieAvailableTickets.textContent = film.capacity - film.tickets_sold;
+          }
+        });
     });
   
-    calculateTotalCost(movieIndex, 1);
-  }
-  
-  // Function to calculate total cost
-  function calculateTotalCost(movieIndex, quantity) {
-    const totalCost = document.getElementById("total-cost");
-    const price = movies[movieIndex].ticketPrice;
-    const total = price * quantity;
-    totalCost.innerHTML = `<h3>Total Cost:</h3>
-                           <p>$${total.toFixed(2)}</p>`;
-  }
-  
-  // Function to handle ticket purchase
-  function purchaseTickets() {
-    const selectedMovie = document.getElementById("selected-movie");
-    const ticketQuantity = document.getElementById("ticket-quantity");
-    const totalCost = document.getElementById("total-cost");
-    const
+    buyTicketButton.addEventListener('click', () => {
+      const availableTickets = parseInt(movieAvailableTickets.textContent);
+      if (availableTickets > 0) {
+        movieAvailableTickets.textContent = availableTickets - 1;
+      }
+    });
+  });
