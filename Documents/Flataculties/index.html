@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flatacuties</title>
-</head>
-<body>
-  <h1>Flatacuties</h1>
-  <button id="showNamesButton" onclick="toggleAnimalListVisibility()">Show Animal Names</button>
-  <ul id="animalList" style="display: none;"></ul>
-  <div id="animalDetails"></div>
+<html>
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="app.js" defer></script>
+<head>
+  <title>Flatacuties Voting App</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <h1>ADORABLE ANIMALS</h1>
+
+  <h2>Animal Names:</h2>
+  <ul class="animal-list"></ul>
+
+  <div class="animal-details">
+    <h2 id="animal-name"></h2>
+    <img id="animal-image" src="">
+    <p>Votes: <span id="animal-votes"></span></p>
+    <button id="vote-button">Vote</button>
+    <button id="reset-button">Reset</button>
+  </div>
+
+  <script src="app.js"></script>
 </body>
+
 </html>
