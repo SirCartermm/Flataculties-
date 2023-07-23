@@ -1,0 +1,11 @@
+function Home(){
+    return <h1> Welcome to  my app!
+        </h1>;
+    
+    
+}
+
+
+function About() {
+    return <h1>About us</h1>;
+}
